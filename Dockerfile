@@ -26,13 +26,14 @@ RUN apt-get update && \
 # Copy authorized keys
 COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 
+
+RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
+    chown -R jenkins:jenkins /home/jenkins/.ssh/
+    
 RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
   && tar xzvf docker-17.04.0-ce.tgz \
   && mv docker/docker /usr/local/bin \
   && rm -r docker docker-17.04.0-ce.tgz
-
-RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
-    chown -R jenkins:jenkins /home/jenkins/.ssh/
 
 # Standard SSH port
 EXPOSE 22
