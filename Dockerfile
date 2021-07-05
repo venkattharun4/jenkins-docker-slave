@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+RUN git clone https://github.com/venkattharun4/maven-web-application.git
+
 # Make sure the package repository is up to date.
 RUN apt-get update && \
     apt-get -qy full-upgrade && \
