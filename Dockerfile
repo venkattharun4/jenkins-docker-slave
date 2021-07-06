@@ -40,5 +40,6 @@ RUN mv ./kubectl /usr/local/bin
 
 # Standard SSH port
 EXPOSE 22
+EXPOSE 8080
 
 CMD ["/usr/sbin/sshd", "-D"]
