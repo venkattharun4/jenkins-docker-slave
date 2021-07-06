@@ -34,12 +34,9 @@ RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz
   && mv docker/docker /usr/local/bin \
   && rm -r docker docker-17.04.0-ce.tgz
   
-RUN apt-get update \
-&& apt-get install -y apt-transport-https ca-certificates curl \
-&& curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-&& echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list \
-&& apt-get update \
-&& sudo apt-get install -y kubectl
+RUN RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+RUN chmod +x ./kubectl
+RUN mv ./kubectl /usr/local/bin
 
 # Standard SSH port
 EXPOSE 22
