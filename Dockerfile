@@ -37,6 +37,11 @@ RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin
+RUN mkdir -p $HOME/.kube
+RUN cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+RUN chown $(id -u):$(id -g) $HOME/.kube/config
+
+
 
 # Standard SSH port
 EXPOSE 22
