@@ -43,10 +43,10 @@ RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz
 #RUN mkdir .kube
 #RUN mv config .kube/
 #RUN sudo chown $(id -u):$(id -g ) $HOME/.kube/config
-RUN apt-get update && sudo apt-get install -y apt-transport-https
+RUN apt-get update && apt-get install -y apt-transport-https
 
-RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN apt-get update
 RUN apt-get install -y kubectl
 
