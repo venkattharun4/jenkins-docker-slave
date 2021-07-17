@@ -54,7 +54,7 @@ RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz
 
 
 # Standard SSH port
-EXPOSE 22
+#EXPOSE 22
 
 
 CMD ["/usr/sbin/sshd", "-D"]
