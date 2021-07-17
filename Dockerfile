@@ -27,14 +27,19 @@ COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
+
+FROM docker/compose:1.25.5
+WORKDIR /app
+ENTRYPOINT ["/bin/sh"]
+
+RUN docker build -t dind . && \
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock dind/
     
-RUN apt-get update && \
-    apt-get -qy full-upgrade && \
-    apt-get install -qy curl && \
-    apt-get install -qy curl && \
-    curl -sSL https://get.docker.com && \
-    systemctl enable docker && \
-    systemctl start docker/ | sh
+#RUN apt-get update && \
+ #   apt-get -qy full-upgrade && \
+  #  apt-get install -qy curl && \
+   # apt-get install -qy curl && \
+    #curl -sSL https://get.docker.com && / | sh
     
 #RUN service redis-server start \
  #  && apt-get update \
