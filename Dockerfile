@@ -28,7 +28,7 @@ COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
     
-RUN sudo service redis-server start \
+RUN service redis-server start \
    && apt-get update \
    && apt install docker.io -y \
    && systemctl enable docker \
