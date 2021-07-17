@@ -32,9 +32,9 @@ RUN apt-get update && \
     apt-get -qy full-upgrade && \
     apt-get install -qy curl && \
     apt-get install -qy curl && \
-    curl -sSL https://get.docker.com/
+    curl -sSL https://get.docker.com \
     && systemctl enable docker \
-    && systemctl start docker \ | sh
+    && systemctl start docker/ | sh
     
 #RUN service redis-server start \
  #  && apt-get update \
