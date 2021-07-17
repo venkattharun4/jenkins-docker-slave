@@ -28,11 +28,17 @@ COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
     
+RUN apt-get update \
+   && apt install docker.io -y \
+   && systemctl enable docker \
+   && systemctl start docker \
+   && usermod -aG docker $USER \
+   && chmod 777 /var/run/docker.sock
     
-RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-  && tar xzvf docker-17.04.0-ce.tgz \
-  && mv docker/docker /usr/local/bin \
-  && rm -r docker docker-17.04.0-ce.tgz \
+#RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
+ # && tar xzvf docker-17.04.0-ce.tgz \
+ # && mv docker/docker /usr/local/bin \
+ # && rm -r docker docker-17.04.0-ce.tgz \
   
   
 #RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
