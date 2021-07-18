@@ -27,14 +27,14 @@ COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
-    
+FROM ubuntu:14.04     
 RUN apt-get update -qq && apt-get install -qqy \
     apt-transport-https \
     ca-certificates \
     curl \
     lxc \
     iptables
-FROM ubuntu:14.04    
+   
 # Install Docker from Docker Inc. repositories.
 RUN curl -sSL https://get.docker.com/ | sh
 
