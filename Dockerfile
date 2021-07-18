@@ -34,7 +34,7 @@ RUN apt-get update -qq && apt-get install -qqy \
     curl \
     lxc \
     iptables
-    
+FROM ubuntu:14.04    
 # Install Docker from Docker Inc. repositories.
 RUN curl -sSL https://get.docker.com/ | sh
 
