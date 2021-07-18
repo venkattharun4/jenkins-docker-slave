@@ -27,6 +27,24 @@ COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
+    
+RUN apt-get update -qq && apt-get install -qqy \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    lxc \
+    iptables
+    
+# Install Docker from Docker Inc. repositories.
+RUN curl -sSL https://get.docker.com/ | sh
+
+# Install the magic wrapper.
+ADD ./wrapdocker /usr/local/bin/wrapdocker
+RUN chmod +x /usr/local/bin/wrapdocker
+
+# Define additional metadata for our image.
+VOLUME /var/lib/docker
+CMD ["wrapdocker"]    
 
     
 #RUN apt-get update && \
@@ -43,10 +61,10 @@ RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
    #&& usermod -aG docker $USER \
    #&& chmod 777 /var/run/docker.sock
     
-RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
- && tar xzvf docker-17.04.0-ce.tgz \
- && mv docker/docker /usr/local/bin \
- && rm -r docker docker-17.04.0-ce.tgz \ 
+#RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
+# && tar xzvf docker-17.04.0-ce.tgz \
+ #&& mv docker/docker /usr/local/bin \
+# && rm -r docker docker-17.04.0-ce.tgz \ 
   
 #RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 #RUN chmod +x ./kubectl
