@@ -28,12 +28,6 @@ COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
 
-FROM docker/compose:1.25.5
-WORKDIR /app
-ENTRYPOINT ["/bin/sh"]
-
-RUN docker build -t dind . && \
-docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock dind/
     
 #RUN apt-get update && \
  #   apt-get -qy full-upgrade && \
@@ -49,10 +43,10 @@ docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock dind/
    #&& usermod -aG docker $USER \
    #&& chmod 777 /var/run/docker.sock
     
-#RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-# && tar xzvf docker-17.04.0-ce.tgz \
-#&& mv docker/docker /usr/local/bin \
-# && rm -r docker docker-17.04.0-ce.tgz \ 
+RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
+ && tar xzvf docker-17.04.0-ce.tgz \
+ && mv docker/docker /usr/local/bin \
+ && rm -r docker docker-17.04.0-ce.tgz \ 
   
 #RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 #RUN chmod +x ./kubectl
